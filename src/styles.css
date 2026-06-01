@@ -578,6 +578,7 @@ select:focus {
   background: #f4faf8;
   font-size: 13px;
   font-weight: 720;
+  text-decoration: none;
   overflow-wrap: anywhere;
 }
 

@@ -6,6 +6,8 @@
 
 Drop in screenshots, CLI output, or a local app URL, and generate a polished GitHub README with install steps, usage examples, GIF/image slots, and badges.
 
+Repository: [https://github.com/Singularity777x/readme-demo-generator](https://github.com/Singularity777x/readme-demo-generator)
+
 ## Demo
 
 ![README Demo Generator screenshot](docs/screenshot.png)
@@ -24,6 +26,8 @@ Drop in screenshots, CLI output, or a local app URL, and generate a polished Git
 ## Installation
 
 ```bash
+git clone https://github.com/Singularity777x/readme-demo-generator.git
+cd readme-demo-generator
 npm install
 ```
 

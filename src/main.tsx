@@ -61,7 +61,7 @@ const initialState: ProjectState = {
   tagline: "Turn screenshots, CLI output, and local app URLs into polished GitHub READMEs.",
   description:
     "A focused README authoring tool for open-source maintainers who want strong install docs, usage examples, badges, and demo media without starting from a blank markdown file.",
-  repositoryUrl: "https://github.com/your-org/readme-demo-generator",
+  repositoryUrl: "https://github.com/Singularity777x/readme-demo-generator",
   installCommand: "npm install && npm run dev",
   usageCommand: "npm run build",
   cliOutput:
@@ -504,10 +504,10 @@ function App() {
               <h3>Overview</h3>
               <p>{project.description}</p>
               {project.repositoryUrl && (
-                <p className="repoLink">
+                <a className="repoLink" href={project.repositoryUrl} target="_blank" rel="noreferrer">
                   <Github size={15} />
                   {project.repositoryUrl}
-                </p>
+                </a>
               )}
               <h3>Demo</h3>
               <div className="previewMedia">
