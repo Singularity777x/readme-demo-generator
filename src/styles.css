@@ -566,6 +566,21 @@ select:focus {
   line-height: 1.58;
 }
 
+.repoLink {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid #dce5e2;
+  border-radius: 8px;
+  color: #0d655d;
+  background: #f4faf8;
+  font-size: 13px;
+  font-weight: 720;
+  overflow-wrap: anywhere;
+}
+
 .readmePreview h3 {
   margin: 24px 0 9px;
   color: #192326;

@@ -34,6 +34,7 @@ type ProjectState = {
   name: string;
   tagline: string;
   description: string;
+  repositoryUrl: string;
   installCommand: string;
   usageCommand: string;
   cliOutput: string;
@@ -60,6 +61,7 @@ const initialState: ProjectState = {
   tagline: "Turn screenshots, CLI output, and local app URLs into polished GitHub READMEs.",
   description:
     "A focused README authoring tool for open-source maintainers who want strong install docs, usage examples, badges, and demo media without starting from a blank markdown file.",
+  repositoryUrl: "https://github.com/your-org/readme-demo-generator",
   installCommand: "npm install && npm run dev",
   usageCommand: "npm run build",
   cliOutput:
@@ -81,8 +83,15 @@ function slugify(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
+function getCloneUrl(repositoryUrl: string) {
+  const trimmed = repositoryUrl.trim();
+  if (!trimmed) return "";
+  return trimmed.endsWith(".git") ? trimmed : `${trimmed}.git`;
+}
+
 function generateMarkdown(project: ProjectState, screenshots: Screenshot[]) {
   const slug = slugify(project.name) || "project";
+  const cloneUrl = getCloneUrl(project.repositoryUrl);
   const badges = project.includeBadges
     ? [
         `![Build](https://img.shields.io/badge/build-passing-brightgreen)`,
@@ -105,6 +114,7 @@ ${project.tagline}
 
 ${project.description}
 
+${project.repositoryUrl ? `Repository: [${project.repositoryUrl}](${project.repositoryUrl})\n` : ""}
 ## Demo
 
 ${media}
@@ -113,7 +123,7 @@ ${project.appUrl ? `Local preview: [${project.appUrl}](${project.appUrl})\n` : "
 ## Installation
 
 \`\`\`bash
-${project.installCommand}
+${cloneUrl ? `git clone ${cloneUrl}\ncd ${slug}\n` : ""}${project.installCommand}
 \`\`\`
 
 ## Usage
@@ -165,6 +175,11 @@ function getReadmeChecks(project: ProjectState, screenshots: Screenshot[]): Read
       label: "Install command",
       passed: project.installCommand.trim().length > 0,
       detail: "Include the command a new user runs first.",
+    },
+    {
+      label: "Repository link",
+      passed: /^https?:\/\/.+/.test(project.repositoryUrl.trim()),
+      detail: "Add the public repository URL for cloning and issue discovery.",
     },
     {
       label: "Usage command",
@@ -314,6 +329,12 @@ function App() {
               rows={4}
               value={project.description}
               onChange={(event) => update("description", event.target.value)}
+            />
+          </Field>
+          <Field label="Repository URL" icon={<Link size={15} />}>
+            <input
+              value={project.repositoryUrl}
+              onChange={(event) => update("repositoryUrl", event.target.value)}
             />
           </Field>
           <Field label="Install command" icon={<TerminalSquare size={15} />}>
@@ -482,13 +503,19 @@ function App() {
               <p className="lead">{project.tagline}</p>
               <h3>Overview</h3>
               <p>{project.description}</p>
+              {project.repositoryUrl && (
+                <p className="repoLink">
+                  <Github size={15} />
+                  {project.repositoryUrl}
+                </p>
+              )}
               <h3>Demo</h3>
               <div className="previewMedia">
                 {screenshots[0] ? <img src={screenshots[0].url} alt={screenshots[0].name} /> : <Laptop size={40} />}
                 <span>{screenshots[0]?.name ?? "docs/demo.gif + docs/screenshot.png"}</span>
               </div>
               <h3>Installation</h3>
-              <pre>{project.installCommand}</pre>
+              <pre>{`${getCloneUrl(project.repositoryUrl) ? `git clone ${getCloneUrl(project.repositoryUrl)}\ncd ${slugify(project.name) || "project"}\n` : ""}${project.installCommand}`}</pre>
               <h3>Usage</h3>
               <pre>{project.usageCommand}</pre>
               <h3>CLI Output</h3>
