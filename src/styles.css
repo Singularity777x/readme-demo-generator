@@ -1,0 +1,535 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f7f9f8;
+  color: #1d2526;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(22, 125, 112, 0.08), transparent 260px),
+    #f7f9f8;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.appShell {
+  min-height: 100vh;
+  padding: 18px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1480px;
+  margin: 0 auto 16px;
+}
+
+.brand,
+.topActions,
+.panelHeader,
+.field span,
+.badge,
+.toggle,
+.urlRow,
+.previewToolbar,
+.smallButton,
+.primaryButton,
+.secondaryButton,
+.iconButton {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 760;
+  color: #162023;
+}
+
+.brandMark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: #ffffff;
+  background: #117c72;
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(17, 124, 114, 0.24);
+}
+
+.topActions {
+  gap: 9px;
+}
+
+.iconButton,
+.primaryButton,
+.secondaryButton,
+.smallButton {
+  border: 1px solid #d6dfdc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 720;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.iconButton {
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #233033;
+  background: #ffffff;
+}
+
+.primaryButton,
+.secondaryButton,
+.smallButton {
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+.primaryButton {
+  color: #ffffff;
+  border-color: #117c72;
+  background: #117c72;
+  box-shadow: 0 14px 26px rgba(17, 124, 114, 0.22);
+}
+
+.secondaryButton,
+.smallButton {
+  color: #1f2b2d;
+  background: #ffffff;
+}
+
+.compact {
+  min-height: 36px;
+  padding-inline: 11px;
+}
+
+.iconButton:hover,
+.primaryButton:hover,
+.secondaryButton:hover,
+.smallButton:hover {
+  transform: translateY(-1px);
+  border-color: #94aaa6;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(360px, 1.2fr) minmax(360px, 1fr);
+  gap: 14px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.panel,
+.previewColumn {
+  min-width: 0;
+  border: 1px solid #dce5e2;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 60px rgba(23, 38, 40, 0.08);
+}
+
+.panel {
+  padding: 18px;
+}
+
+.panelHeader {
+  gap: 10px;
+  margin-bottom: 18px;
+  color: #117c72;
+}
+
+.panelHeader h2,
+.previewToolbar h2 {
+  margin: 0;
+  color: #162023;
+  font-size: 18px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.panelHeader p,
+.previewToolbar p {
+  margin: 4px 0 0;
+  color: #657477;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 13px;
+}
+
+.field span {
+  gap: 6px;
+  color: #536366;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid #d9e1df;
+  border-radius: 8px;
+  color: #1f2b2d;
+  background: #fbfcfc;
+  outline: none;
+}
+
+input,
+select {
+  height: 40px;
+  padding: 0 11px;
+}
+
+textarea {
+  resize: vertical;
+  padding: 10px 11px;
+  line-height: 1.45;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #117c72;
+  box-shadow: 0 0 0 3px rgba(17, 124, 114, 0.12);
+}
+
+.toggleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.toggle {
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  border: 1px solid #d9e1df;
+  border-radius: 8px;
+  color: #536366;
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.toggleActive {
+  color: #0d655d;
+  border-color: #9acbc5;
+  background: #eaf7f4;
+}
+
+.toggleDot {
+  display: grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.dropZone {
+  display: grid;
+  min-height: 162px;
+  margin-bottom: 14px;
+  place-items: center;
+  padding: 22px;
+  text-align: center;
+  border: 1.5px dashed #9fb2ae;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(17, 124, 114, 0.07), rgba(233, 155, 43, 0.08)),
+    #fbfcfc;
+}
+
+.dropZone input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.dropIcon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 8px;
+  place-items: center;
+  color: #117c72;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px #dbe5e2;
+}
+
+.dropZone strong {
+  color: #1d2526;
+  font-size: 16px;
+}
+
+.dropZone small {
+  max-width: 280px;
+  color: #66777a;
+  line-height: 1.4;
+}
+
+.mediaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.mediaGrid figure,
+.emptyMedia {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #dce5e2;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.mediaGrid figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.mediaGrid figcaption {
+  overflow: hidden;
+  padding: 8px 9px;
+  color: #59696c;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emptyMedia {
+  display: grid;
+  min-height: 118px;
+  place-items: center;
+  color: #8a999b;
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.urlRow {
+  gap: 8px;
+}
+
+.urlRow input {
+  min-width: 0;
+}
+
+.smallButton {
+  flex: 0 0 auto;
+  min-height: 40px;
+}
+
+.terminalInput,
+.cliBlock {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.previewColumn {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.previewToolbar {
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 13px;
+  border-bottom: 1px solid #dce5e2;
+}
+
+.readmePreview {
+  overflow: auto;
+  padding: 22px;
+}
+
+.readmePreview h1 {
+  margin: 0 0 12px;
+  color: #11181a;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.lead {
+  color: #435154;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.readmePreview p {
+  color: #4d5c5f;
+  line-height: 1.58;
+}
+
+.readmePreview h3 {
+  margin: 24px 0 9px;
+  color: #192326;
+  font-size: 17px;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.badge {
+  gap: 5px;
+  min-height: 26px;
+  padding: 0 9px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.success {
+  background: #12805f;
+}
+
+.info {
+  background: #256fbd;
+}
+
+.dark {
+  background: #20292c;
+}
+
+.previewMedia {
+  display: grid;
+  min-height: 210px;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid #dce5e2;
+  border-radius: 8px;
+  color: #7a898b;
+  background:
+    linear-gradient(135deg, rgba(17, 124, 114, 0.08), transparent),
+    #f7faf9;
+}
+
+.previewMedia img {
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  object-fit: cover;
+}
+
+.previewMedia span {
+  padding: 0 12px 12px;
+  color: #68787b;
+  font-size: 12px;
+  font-weight: 720;
+}
+
+pre {
+  overflow: auto;
+  margin: 0;
+  padding: 13px;
+  border: 1px solid #dce5e2;
+  border-radius: 8px;
+  color: #e9fbf7;
+  background: #152022;
+  line-height: 1.5;
+}
+
+@media (max-width: 1180px) {
+  .workspace {
+    grid-template-columns: minmax(280px, 0.9fr) minmax(420px, 1.1fr);
+  }
+
+  .previewColumn {
+    grid-column: 1 / -1;
+    max-height: 720px;
+  }
+}
+
+@media (max-width: 760px) {
+  .appShell {
+    padding: 12px;
+  }
+
+  .topbar,
+  .workspace,
+  .topActions {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar,
+  .topActions {
+    align-items: stretch;
+  }
+
+  .topbar {
+    display: grid;
+  }
+
+  .topActions {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr;
+  }
+
+  .workspace {
+    display: grid;
+  }
+
+  .toggleGrid,
+  .mediaGrid,
+  .urlRow {
+    grid-template-columns: 1fr;
+  }
+
+  .urlRow {
+    display: grid;
+  }
+
+  .smallButton,
+  .primaryButton,
+  .secondaryButton {
+    justify-content: center;
+  }
+}
