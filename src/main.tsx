@@ -10,6 +10,7 @@ import {
   Code2,
   Download,
   FileImage,
+  FileText,
   Github,
   Globe2,
   ImagePlus,
@@ -27,6 +28,7 @@ import {
 import "./styles.css";
 
 type License = "MIT" | "Apache-2.0" | "GPL-3.0" | "BSD-3-Clause";
+type PreviewMode = "rendered" | "markdown";
 
 type ProjectState = {
   name: string;
@@ -233,6 +235,7 @@ function App() {
   const [project, setProject] = useState<ProjectState>(initialState);
   const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
   const [copied, setCopied] = useState(false);
+  const [previewMode, setPreviewMode] = useState<PreviewMode>("rendered");
   const markdown = useMemo(() => generateMarkdown(project, screenshots), [project, screenshots]);
   const readmeChecks = useMemo(() => getReadmeChecks(project, screenshots), [project, screenshots]);
   const passedChecks = readmeChecks.filter((check) => check.passed).length;
@@ -435,39 +438,67 @@ function App() {
               <h2>Live README</h2>
               <p>{markdown.split("\n").length} markdown lines ready · {readmeScore}% health</p>
             </div>
-            <button className="secondaryButton compact" type="button" onClick={copyMarkdown}>
-              <Clipboard size={16} />
-              Copy
-            </button>
+            <div className="previewActions">
+              <div className="segmentedControl" aria-label="Preview mode">
+                <button
+                  className={previewMode === "rendered" ? "activeSegment" : ""}
+                  type="button"
+                  onClick={() => setPreviewMode("rendered")}
+                  aria-pressed={previewMode === "rendered"}
+                >
+                  <BookOpen size={14} />
+                  Preview
+                </button>
+                <button
+                  className={previewMode === "markdown" ? "activeSegment" : ""}
+                  type="button"
+                  onClick={() => setPreviewMode("markdown")}
+                  aria-pressed={previewMode === "markdown"}
+                >
+                  <FileText size={14} />
+                  Markdown
+                </button>
+              </div>
+              <button className="secondaryButton compact" type="button" onClick={copyMarkdown}>
+                <Clipboard size={16} />
+                Copy
+              </button>
+            </div>
           </div>
 
-          <article className="readmePreview">
-            <h1>{project.name}</h1>
-            {project.includeBadges && (
-              <div className="badgeRow">
-                {badgeOptions.map((badge) => (
-                  <span className={`badge ${badge.color}`} key={badge.label}>
-                    <BadgeCheck size={13} />
-                    {badge.label}: {badge.value}
-                  </span>
-                ))}
+          {previewMode === "rendered" ? (
+            <article className="readmePreview">
+              <h1>{project.name}</h1>
+              {project.includeBadges && (
+                <div className="badgeRow">
+                  {badgeOptions.map((badge) => (
+                    <span className={`badge ${badge.color}`} key={badge.label}>
+                      <BadgeCheck size={13} />
+                      {badge.label}: {badge.value}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <p className="lead">{project.tagline}</p>
+              <h3>Overview</h3>
+              <p>{project.description}</p>
+              <h3>Demo</h3>
+              <div className="previewMedia">
+                {screenshots[0] ? <img src={screenshots[0].url} alt={screenshots[0].name} /> : <Laptop size={40} />}
+                <span>{screenshots[0]?.name ?? "docs/demo.gif + docs/screenshot.png"}</span>
               </div>
-            )}
-            <p className="lead">{project.tagline}</p>
-            <h3>Overview</h3>
-            <p>{project.description}</p>
-            <h3>Demo</h3>
-            <div className="previewMedia">
-              {screenshots[0] ? <img src={screenshots[0].url} alt={screenshots[0].name} /> : <Laptop size={40} />}
-              <span>{screenshots[0]?.name ?? "docs/demo.gif + docs/screenshot.png"}</span>
-            </div>
-            <h3>Installation</h3>
-            <pre>{project.installCommand}</pre>
-            <h3>Usage</h3>
-            <pre>{project.usageCommand}</pre>
-            <h3>CLI Output</h3>
-            <pre className="cliBlock">{project.cliOutput}</pre>
-          </article>
+              <h3>Installation</h3>
+              <pre>{project.installCommand}</pre>
+              <h3>Usage</h3>
+              <pre>{project.usageCommand}</pre>
+              <h3>CLI Output</h3>
+              <pre className="cliBlock">{project.cliOutput}</pre>
+            </article>
+          ) : (
+            <section className="markdownPane" aria-label="Generated markdown">
+              <pre>{markdown}</pre>
+            </section>
+          )}
         </section>
       </section>
     </main>

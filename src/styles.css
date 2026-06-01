@@ -57,6 +57,9 @@ button {
 .healthHeader,
 .checkList li,
 .previewToolbar,
+.previewActions,
+.segmentedControl,
+.segmentedControl button,
 .smallButton,
 .primaryButton,
 .secondaryButton,
@@ -486,9 +489,62 @@ select:focus {
   border-bottom: 1px solid #dce5e2;
 }
 
+.previewActions {
+  gap: 9px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.segmentedControl {
+  min-height: 36px;
+  padding: 3px;
+  border: 1px solid #d6dfdc;
+  border-radius: 8px;
+  background: #f2f6f5;
+}
+
+.segmentedControl button {
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 6px;
+  color: #5b6b6e;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.segmentedControl .activeSegment {
+  color: #0d655d;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(22, 36, 38, 0.12);
+}
+
 .readmePreview {
   overflow: auto;
   padding: 22px;
+}
+
+.markdownPane {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  background: #101819;
+}
+
+.markdownPane pre {
+  height: 100%;
+  min-height: 620px;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #dff7ef;
+  background:
+    linear-gradient(180deg, rgba(17, 124, 114, 0.12), transparent 220px),
+    #101819;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 1.58;
+  white-space: pre-wrap;
 }
 
 .readmePreview h1 {
@@ -637,5 +693,21 @@ pre {
   .primaryButton,
   .secondaryButton {
     justify-content: center;
+  }
+
+  .previewToolbar,
+  .previewActions,
+  .segmentedControl {
+    align-items: stretch;
+  }
+
+  .previewToolbar,
+  .previewActions {
+    display: grid;
+  }
+
+  .segmentedControl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }

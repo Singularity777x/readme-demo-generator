@@ -17,6 +17,7 @@ Drop in screenshots, CLI output, or a local app URL, and generate a polished Git
 - CLI output capture area formatted as markdown
 - Local app URL field with a capture note action
 - Live GitHub-style README preview
+- Raw Markdown mode for checking the exact generated `README.md`
 - README health checks for title, tagline, install, usage, demo media, CLI proof, badges, contributing notes, and license
 - Copy and download actions for `README.md`
 
