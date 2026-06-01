@@ -54,6 +54,8 @@ button {
 .badge,
 .toggle,
 .urlRow,
+.healthHeader,
+.checkList li,
 .previewToolbar,
 .smallButton,
 .primaryButton,
@@ -365,6 +367,110 @@ select:focus {
 .cliBlock {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 12px;
+}
+
+.healthPanel {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid #dce5e2;
+  border-radius: 8px;
+  background: #fbfcfc;
+}
+
+.healthHeader {
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.healthIcon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: #0d655d;
+  border-radius: 8px;
+  background: #eaf7f4;
+}
+
+.healthHeader div {
+  flex: 1;
+  min-width: 0;
+}
+
+.healthHeader h3 {
+  margin: 0;
+  color: #162023;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.healthHeader p {
+  margin: 3px 0 0;
+  color: #66777a;
+  font-size: 12px;
+}
+
+.healthHeader strong {
+  color: #0d655d;
+  font-size: 18px;
+}
+
+.scoreTrack {
+  overflow: hidden;
+  height: 8px;
+  margin: 12px 0;
+  border-radius: 999px;
+  background: #e7eeec;
+}
+
+.scoreTrack span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #117c72, #e99b2b);
+  transition: width 180ms ease;
+}
+
+.checkList {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.checkList li {
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.checkList strong,
+.checkList small {
+  display: block;
+}
+
+.checkList strong {
+  color: #223033;
+  font-size: 12px;
+}
+
+.checkList small {
+  margin-top: 2px;
+  color: #657477;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.checkPassed {
+  color: #117c72;
+}
+
+.checkMissing {
+  color: #b86812;
 }
 
 .previewColumn {

@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
+  AlertCircle,
   BadgeCheck,
   BookOpen,
   Braces,
@@ -14,6 +15,7 @@ import {
   ImagePlus,
   Laptop,
   Link,
+  ListChecks,
   MonitorPlay,
   PackageCheck,
   Rocket,
@@ -43,6 +45,12 @@ type ProjectState = {
 type Screenshot = {
   name: string;
   url: string;
+};
+
+type ReadmeCheck = {
+  label: string;
+  passed: boolean;
+  detail: string;
 };
 
 const initialState: ProjectState = {
@@ -139,6 +147,46 @@ ${project.license}
 `;
 }
 
+function getReadmeChecks(project: ProjectState, screenshots: Screenshot[]): ReadmeCheck[] {
+  return [
+    {
+      label: "Clear project title",
+      passed: project.name.trim().length >= 3,
+      detail: "Use the repository or package name as the first heading.",
+    },
+    {
+      label: "Short value proposition",
+      passed: project.tagline.trim().length >= 18,
+      detail: "Add one sentence that says what the project does.",
+    },
+    {
+      label: "Install command",
+      passed: project.installCommand.trim().length > 0,
+      detail: "Include the command a new user runs first.",
+    },
+    {
+      label: "Usage command",
+      passed: project.usageCommand.trim().length > 0,
+      detail: "Show the fastest way to verify the project works.",
+    },
+    {
+      label: "Demo media slot",
+      passed: screenshots.length > 0 || project.includeGifSlot,
+      detail: "Reserve a GIF or screenshot path for visual proof.",
+    },
+    {
+      label: "CLI proof",
+      passed: project.cliOutput.trim().length >= 24,
+      detail: "Paste representative output so users know what success looks like.",
+    },
+    {
+      label: "Open-source finish",
+      passed: project.includeBadges && project.includeContributing && Boolean(project.license),
+      detail: "Badges, contributing notes, and a license make the README release-ready.",
+    },
+  ];
+}
+
 function Field({
   label,
   children,
@@ -186,6 +234,9 @@ function App() {
   const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
   const [copied, setCopied] = useState(false);
   const markdown = useMemo(() => generateMarkdown(project, screenshots), [project, screenshots]);
+  const readmeChecks = useMemo(() => getReadmeChecks(project, screenshots), [project, screenshots]);
+  const passedChecks = readmeChecks.filter((check) => check.passed).length;
+  const readmeScore = Math.round((passedChecks / readmeChecks.length) * 100);
 
   function update<K extends keyof ProjectState>(key: K, value: ProjectState[K]) {
     setProject((current) => ({ ...current, [key]: value }));
@@ -349,13 +400,40 @@ function App() {
               onChange={(event) => update("cliOutput", event.target.value)}
             />
           </Field>
+
+          <div className="healthPanel" aria-label="README health checks">
+            <div className="healthHeader">
+              <span className="healthIcon">
+                <ListChecks size={18} />
+              </span>
+              <div>
+                <h3>README Health</h3>
+                <p>{passedChecks} of {readmeChecks.length} essentials complete</p>
+              </div>
+              <strong>{readmeScore}%</strong>
+            </div>
+            <div className="scoreTrack" aria-hidden="true">
+              <span style={{ width: `${readmeScore}%` }} />
+            </div>
+            <ul className="checkList">
+              {readmeChecks.map((check) => (
+                <li className={check.passed ? "checkPassed" : "checkMissing"} key={check.label}>
+                  {check.passed ? <Check size={15} /> : <AlertCircle size={15} />}
+                  <span>
+                    <strong>{check.label}</strong>
+                    <small>{check.detail}</small>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         <section className="previewColumn">
           <div className="previewToolbar">
             <div>
               <h2>Live README</h2>
-              <p>{markdown.split("\n").length} markdown lines ready</p>
+              <p>{markdown.split("\n").length} markdown lines ready · {readmeScore}% health</p>
             </div>
             <button className="secondaryButton compact" type="button" onClick={copyMarkdown}>
               <Clipboard size={16} />
